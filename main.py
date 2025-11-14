@@ -80,7 +80,7 @@ def cmd_reminder():
         return jsonify(res)
     
     minutes = split[-1]
-    reminder = text.removesuffix(minutes)
+    reminder = text.removesuffix(minutes).strip()
     
     try:
         minutes = int(minutes)
