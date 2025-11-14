@@ -20,14 +20,19 @@ def handle_mention(event, say):
         thread_ts=thread_ts
     )
 
+@app.event("member_joined_channel")
+def handle_join_channel(event, say):
+    user = event["user"]
+    say(
+        text=f"<@{user}> welcome to my shithole i mean channel. <@U092839T3A7> get ur ass over here."
+    )
+
 flask = Flask(__name__)
 handler = SlackRequestHandler(app)
 
 @flask.route("/slackbot/events", methods=["POST"])
 def slack_events():
     return handler.handle(request)
-
-
 
 if __name__ == "__main__":
     flask.run(host="0.0.0.0", port=3001)
