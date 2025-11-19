@@ -14,6 +14,8 @@ app = App(
     signing_secret=os.getenv("SLACK_SIGNING_SECRET")
 )
 
+PERSONAL_CHANNEL = "C09TRANKTB5"
+
 @app.event("app_mention")
 def handle_mention(event, say):
     user = event["user"]
@@ -40,7 +42,12 @@ def handle_mention(event, say):
 
 @app.event("member_joined_channel")
 def handle_join_channel(event, say):
-    user = event["user"]
+    channel_id = event.get("channel", "")
+    user_id = event.get("user", "")
+    
+    if channel_id != PERSONAL_CHANNEL:
+        return
+        
     say(
         text=f"<@{user}> welcome to my ~shithole~ channel. <@U092839T3A7> get ur ass over here."
     )
